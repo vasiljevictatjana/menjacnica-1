@@ -119,7 +119,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnNewButton = new JButton("Dodaj kurs");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziDodajKursGUI();
+					GUIKontroler.prikaziDodajKursGUI();
 				}
 			});
 			btnNewButton.setPreferredSize(new Dimension(140, 25));
@@ -131,7 +131,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnObrisiKurs = new JButton("Obrisi kurs");
 			btnObrisiKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziObrisiKursGUI();
+					GUIKontroler.prikaziObrisiKursGUI((Valuta)(list.getSelectedValue()));
 				}
 			});
 			btnObrisiKurs.setPreferredSize(new Dimension(140, 25));
@@ -143,7 +143,7 @@ public class MenjacnicaGUI extends JFrame {
 			btnIzvrsiZamenu = new JButton("Izvrsi zamenu");
 			btnIzvrsiZamenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziIzvrsiZamenuGUI();
+					GUIKontroler.prikaziIzvrsiZamenuGUI((Valuta)(list.getSelectedValue()));
 				}
 			});
 			btnIzvrsiZamenu.setPreferredSize(new Dimension(140, 25));
@@ -270,21 +270,7 @@ public class MenjacnicaGUI extends JFrame {
 		list.setListData(sistem.vratiKursnuListu().toArray());
 
 	}
-	
-	private void prikaziDodajKursGUI() {
-		DodajKursGUI prozor = new DodajKursGUI(this);
-		prozor.setLocationRelativeTo(contentPane);
-		prozor.setVisible(true);
-	}
 
-	private void prikaziObrisiKursGUI() {
-		if (list.getSelectedValue() != null) {
-			ObrisiKursGUI prozor = new ObrisiKursGUI(this,
-					(Valuta) (list.getSelectedValue()));
-			prozor.setLocationRelativeTo(contentPane);
-			prozor.setVisible(true);
-		}
-	}
 	
 	private JPopupMenu getPopupMenu() {
 		if (popupMenu == null) {
@@ -300,7 +286,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmDodajKurs = new JMenuItem("Dodaj kurs");
 			mntmDodajKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziDodajKursGUI();
+					GUIKontroler.prikaziDodajKursGUI();
 				}
 			});
 		}
@@ -311,7 +297,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmObrisiKurs = new JMenuItem("Obrisi kurs");
 			mntmObrisiKurs.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziObrisiKursGUI();
+					GUIKontroler.prikaziObrisiKursGUI((Valuta)(list.getSelectedValue()));
 				}
 			});
 		}
@@ -322,20 +308,13 @@ public class MenjacnicaGUI extends JFrame {
 			mntmIzvrsiZamenu = new JMenuItem("Izvrsi zamenu");
 			mntmIzvrsiZamenu.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziIzvrsiZamenuGUI();
+					GUIKontroler.prikaziIzvrsiZamenuGUI((Valuta)list.getSelectedValue());
 				}
 			});
 		}
 		return mntmIzvrsiZamenu;
 	}
 	
-	private void prikaziIzvrsiZamenuGUI() {
-		if (list.getSelectedValue() != null) {
-			IzvrsiZamenuGUI prozor = new IzvrsiZamenuGUI(this,
-					(Valuta) (list.getSelectedValue()));
-			prozor.setLocationRelativeTo(contentPane);
-			prozor.setVisible(true);
-		}
-	}
+	
 
 }
