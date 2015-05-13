@@ -9,7 +9,10 @@ import java.io.ObjectOutputStream;
 import java.util.LinkedList;
 
 import menjacnica.sistemskeoperacije.SODodajValutu;
+import menjacnica.sistemskeoperacije.SOIzvrsiTransakciju;
 import menjacnica.sistemskeoperacije.SOObrisiValutu;
+import menjacnica.sistemskeoperacije.SOSacuvajUFajl;
+import menjacnica.sistemskeoperacije.SOUcitajIzFajla;
 
 public class Menjacnica implements MenjacnicaInterface{
 	
@@ -25,10 +28,7 @@ public class Menjacnica implements MenjacnicaInterface{
 	
 	@Override
 	public double izvrsiTransakciju(Valuta valuta, boolean prodaja, double iznos) {
-		if (prodaja)
-			return iznos*valuta.getProdajni();
-		else
-			return iznos*valuta.getKupovni();
+		return SOIzvrsiTransakciju.izvrsiTransakciju(valuta, prodaja, iznos);
 	}
 
 	@Override
@@ -38,30 +38,12 @@ public class Menjacnica implements MenjacnicaInterface{
 
 	@Override
 	public void ucitajIzFajla(String putanja) {
-		try{
-			ObjectInputStream in = new ObjectInputStream(
-					new BufferedInputStream(new FileInputStream(putanja)));
-			
-			kursnaLista = (LinkedList<Valuta>)(in.readObject());
-			
-			in.close();
-		}catch(Exception e){
-			throw new RuntimeException(e);
-		}
+		SOUcitajIzFajla.ucitajIzFajla(putanja, kursnaLista);
 	}
 
 	@Override
 	public void sacuvajUFajl(String putanja) {
-		try{
-			ObjectOutputStream out = new ObjectOutputStream(
-					new BufferedOutputStream(new FileOutputStream(putanja)));
-			
-			out.writeObject(kursnaLista);
-			
-			out.close();
-		}catch(Exception e){
-			throw new RuntimeException(e);
-		}
+		SOSacuvajUFajl.sacuvajUFajl(putanja, kursnaLista);
 	}
 
 	private LinkedList<Valuta> kursnaLista = new LinkedList<Valuta>();
