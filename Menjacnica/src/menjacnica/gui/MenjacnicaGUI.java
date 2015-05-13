@@ -72,29 +72,13 @@ public class MenjacnicaGUI extends JFrame {
 	private JMenuItem mntmIzvrsiZamenu;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MenjacnicaGUI frame = new MenjacnicaGUI();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public MenjacnicaGUI() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				ugasiAplikaciju();
+				GUIKontroler.ugasiAplikaciju();
 			}
 		});
 		setIconImage(Toolkit.getDefaultToolkit().getImage(MenjacnicaGUI.class.getResource("/icons/Screenshot.png")));
@@ -221,7 +205,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmExit = new JMenuItem("Exit");
 			mntmExit.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ugasiAplikaciju();
+					GUIKontroler.ugasiAplikaciju();
 				}
 			});
 			mntmExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_X, InputEvent.ALT_MASK));
@@ -233,7 +217,7 @@ public class MenjacnicaGUI extends JFrame {
 			mntmAbout = new JMenuItem("About");
 			mntmAbout.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					prikaziAboutProzor();
+					GUIKontroler.prikaziAboutProzor();
 				}
 			});
 		}
@@ -249,20 +233,6 @@ public class MenjacnicaGUI extends JFrame {
 		return list;
 	}
 	
-	private void ugasiAplikaciju() {
-		int opcija = JOptionPane.showConfirmDialog(contentPane,
-				"Da li ZAISTA zelite da izadjete iz apliacije", "Izlazak",
-				JOptionPane.YES_NO_OPTION);
-
-		if (opcija == JOptionPane.YES_OPTION)
-			System.exit(0);
-	}
-	
-	private void prikaziAboutProzor(){
-		JOptionPane.showMessageDialog(contentPane,
-				"Autor: Bojan Tomic, Verzija 1.0", "O programu Menjacnica",
-				JOptionPane.INFORMATION_MESSAGE);
-	}
 	
 	private void sacuvajUFajl() {
 		try {
